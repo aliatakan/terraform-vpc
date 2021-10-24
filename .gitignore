@@ -2,3 +2,6 @@ terraform.tfstate
 terraform.out
 london*
 .terraform
+*.key
+*.hcl
+secret*

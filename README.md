@@ -1,6 +1,9 @@
 # terraform-vpc
 Terraform, Infrastructure as Code! 
 
+Terraform installation
+https://learn.hashicorp.com/tutorials/terraform/install-cli
+
 https://medium.com/@aliatakan/terraform-create-a-vpc-subnets-and-more-6ef43f0bf4c1
 
 It creates; 
@@ -17,4 +20,5 @@ ssh-keygen -f london-region-key-pair
 terraform init
 terraform plan -out terraform.out
 terraform apply terraform.out
+terraform destroy
 ```

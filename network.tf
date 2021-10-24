@@ -28,6 +28,10 @@ resource "aws_route_table_association" "prod-crta-public-subnet-1" {
     route_table_id = "${aws_route_table.prod-public-crt.id}"
 }
 
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
 # security group
 resource "aws_security_group" "ssh-allowed" {
 
@@ -47,7 +51,9 @@ resource "aws_security_group" "ssh-allowed" {
         
         // This means, all ip address are allowed to ssh !
         // Do not do it in the production. Put your office or home address in it!
-        cidr_blocks = ["0.0.0.0/0"]
+        // cidr_blocks = ["0.0.0.0/0"]
+        // https://stackoverflow.com/questions/46763287/i-want-to-identify-the-public-ip-of-the-terraform-execution-environment-and-add
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
     }
 
     //If you do not add this rule, you can not reach the NGIX
