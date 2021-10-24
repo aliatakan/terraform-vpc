@@ -1,6 +1,6 @@
 resource "aws_instance" "web1" {
 
-    ami = "${lookup(var.AMI, var.AWS_REGION)}"
+    ami           = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
 
     # VPC
@@ -35,4 +35,21 @@ resource "aws_instance" "web1" {
 resource "aws_key_pair" "london-region-key-pair" {
     key_name = "london-region-key-pair"
     public_key = "${file(var.PUBLIC_KEY_PATH)}"
+}
+
+data "aws_ami" "ubuntu" {
+
+    most_recent = true
+
+    filter {
+        name   = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+
+    filter {
+        name = "virtualization-type"
+        values = ["hvm"]
+    }
+
+    owners = ["099720109477"]
 }
