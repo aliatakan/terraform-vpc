@@ -26,6 +26,7 @@ resource "aws_instance" "web1" {
     }
 
     connection {
+        host = self.public_ip
         user = "${var.EC2_USER}"
         private_key = "${file("${var.PRIVATE_KEY_PATH}")}"
     }

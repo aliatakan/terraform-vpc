@@ -3,7 +3,7 @@
 resource "aws_internet_gateway" "prod-igw" {
     vpc_id = "${aws_vpc.prod-vpc.id}"
 
-    tags {
+    tags = {
         Name = "prod-igw"
     }
 }
@@ -64,7 +64,7 @@ resource "aws_security_group" "ssh-allowed" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
-    tags {
+    tags = {
         Name = "ssh-allowed"
     }
 }
