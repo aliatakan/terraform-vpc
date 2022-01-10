@@ -3,11 +3,11 @@ variable "AWS_REGION" {
 }
 
 variable "PRIVATE_KEY_PATH" {
-  default = "verginia-region-key-pair"
+  default = "virginia-region-key-pair"
 }
 
 variable "PUBLIC_KEY_PATH" {
-  default = "verginia-region-key-pair.pub"
+  default = "virginia-region-key-pair.pub"
 }
 
 variable "EC2_USER" {

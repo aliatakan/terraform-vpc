@@ -61,7 +61,21 @@ resource "aws_security_group" "ssh-allowed" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+    }
+
+    ingress {
+        from_port = 0
+        to_port = 8080
+        protocol = "tcp"
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+    }
+
+    ingress {
+        from_port = 0
+        to_port = 1234
+        protocol = "tcp"
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
     }
 
     tags = {
