@@ -6,5 +6,5 @@ provider "aws" {
      Project     = "Test"
    }
  }
-    region = "${var.AWS_REGION}"
+    region = var.AWS_REGION
 }

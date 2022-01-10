@@ -1,5 +1,5 @@
 variable "AWS_REGION" {
-  default = "eu-west-2"
+  default = "us-east-1"
 }
 
 variable "PRIVATE_KEY_PATH" {
@@ -17,7 +17,7 @@ variable "AMI" {
   type = map
 
   default =  {
-    eu-west-2 = "ami-00455b9581676d8d0"
-    us-east-1 = "ami-0c2a1acae6667e438"
+    us-east-1 = "ami-0d37e07bd4ff37148"
+    us-east-2 = "ami-0c2a1acae6667e438"
   }
 }

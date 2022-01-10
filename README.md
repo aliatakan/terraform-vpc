@@ -24,5 +24,5 @@ terraform apply terraform.out
 
 ssh -i "london-region-key-pair" ubuntu@18.132.16.213
 
-terraform destroy
+terraform destroy -auto-approve
 ```
