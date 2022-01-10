@@ -17,12 +17,12 @@ It creates;
 After cloning the repo, just run these 3 commands
 
 ```
-ssh-keygen -f london-region-key-pair
+ssh-keygen -f verginia-region-key-pair
 terraform init
 terraform plan -out terraform.out
 terraform apply terraform.out
 
-ssh -i "london-region-key-pair" ubuntu@18.132.16.213
+ssh -i "verginia-region-key-pair" ubuntu@18.132.16.213
 
 terraform destroy -auto-approve
 ```

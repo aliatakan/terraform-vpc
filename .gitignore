@@ -1,6 +1,6 @@
 terraform.tfstate
 terraform.out
-london*
+verginia*
 .terraform
 *.key
 *.hcl

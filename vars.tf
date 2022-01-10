@@ -3,15 +3,16 @@ variable "AWS_REGION" {
 }
 
 variable "PRIVATE_KEY_PATH" {
-  default = "london-region-key-pair"
+  default = "verginia-region-key-pair"
 }
 
 variable "PUBLIC_KEY_PATH" {
-  default = "london-region-key-pair.pub"
+  default = "verginia-region-key-pair.pub"
 }
 
 variable "EC2_USER" {
-  default = "ubuntu"
+  # need to change to the user in case of ubuntu user = "ubuntu"
+  default = "ec2-user" 
 }
 variable "AMI" {
   type = map
