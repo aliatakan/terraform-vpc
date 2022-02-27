@@ -1,3 +1,10 @@
 provider "aws" {
-    region = "${var.AWS_REGION}"
+ default_tags {
+   tags = {
+     Environment = "Test"
+     Owner       = "TFProviders"
+     Project     = "Test"
+   }
+ }
+    region = var.AWS_REGION
 }

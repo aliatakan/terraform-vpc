@@ -1,9 +1,9 @@
 # create an IGW (Internet Gateway)
 # It enables your vpc to connect to the internet
 resource "aws_internet_gateway" "prod-igw" {
-    vpc_id = "${aws_vpc.prod-vpc.id}"
+    vpc_id = aws_vpc.prod-vpc.id
 
-    tags {
+    tags = {
         Name = "prod-igw"
     }
 }
@@ -11,10 +11,10 @@ resource "aws_internet_gateway" "prod-igw" {
 # create a custom route table for public subnets
 # public subnets can reach to the internet buy using this
 resource "aws_route_table" "prod-public-crt" {
-    vpc_id = "${aws_vpc.prod-vpc.id}"
+    vpc_id = aws_vpc.prod-vpc.id
     route {
         cidr_block = "0.0.0.0/0" //associated subnet can reach everywhere
-        gateway_id = "${aws_internet_gateway.prod-igw.id}" //CRT uses this IGW to reach internet
+        gateway_id = aws_internet_gateway.prod-igw.id //CRT uses this IGW to reach internet
     }
 
     tags = {
@@ -24,14 +24,18 @@ resource "aws_route_table" "prod-public-crt" {
 
 # route table association for the public subnets
 resource "aws_route_table_association" "prod-crta-public-subnet-1" {
-    subnet_id = "${aws_subnet.prod-subnet-public-1.id}"
-    route_table_id = "${aws_route_table.prod-public-crt.id}"
+    subnet_id = aws_subnet.prod-subnet-public-1.id
+    route_table_id = aws_route_table.prod-public-crt.id
+}
+
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
 }
 
 # security group
 resource "aws_security_group" "ssh-allowed" {
 
-    vpc_id = "${aws_vpc.prod-vpc.id}"
+    vpc_id = aws_vpc.prod-vpc.id
 
     egress {
         from_port = 0
@@ -47,7 +51,9 @@ resource "aws_security_group" "ssh-allowed" {
         
         // This means, all ip address are allowed to ssh !
         // Do not do it in the production. Put your office or home address in it!
-        cidr_blocks = ["0.0.0.0/0"]
+        // cidr_blocks = ["0.0.0.0/0"]
+        // https://stackoverflow.com/questions/46763287/i-want-to-identify-the-public-ip-of-the-terraform-execution-environment-and-add
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
     }
 
     //If you do not add this rule, you can not reach the NGIX
@@ -55,10 +61,24 @@ resource "aws_security_group" "ssh-allowed" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
     }
 
-    tags {
+    ingress {
+        from_port = 0
+        to_port = 8080
+        protocol = "tcp"
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+    }
+
+    ingress {
+        from_port = 0
+        to_port = 1234
+        protocol = "tcp"
+        cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+    }
+
+    tags = {
         Name = "ssh-allowed"
     }
 }

@@ -1,4 +1,9 @@
 terraform.tfstate
 terraform.out
-london*
+virginia*
 .terraform
+*.key
+*.hcl
+*.info
+secret*
+*-key-*
