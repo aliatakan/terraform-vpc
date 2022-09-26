@@ -18,3 +18,26 @@ terraform init
 terraform plan -out terraform.out
 terraform apply terraform.out
 ```
+
+or 
+```
+export AWS_SECRET_ACCESS_KEY=<YOUR-SECRET_ACCESS_KEY>
+export AWS_ACCESS_KEY_ID=<YOUR-ACCESS_KEY_ID>
+ssh-keygen -f london-region-key-pair
+terraform init
+terraform plan -out terraform.out
+```
+this will ask for the path of your ssh-keys.
+
+something like : /home/user/london-region-key-pair
+
+something like : /home/user/london-region-key-pair.pub
+
+```
+terraform apply terraform.out
+```
+
+
+
+
+
